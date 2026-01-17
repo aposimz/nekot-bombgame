@@ -1,0 +1,35 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>BombGame UI</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div id="vehicle-message" class="vehicle-message" style="display:none"></div>
+    <div id="app" style="display:none">
+      <div class="panel">
+        
+        <h1>BombGame</h1>
+        <div id="invite"></div>
+        <div id="grid" class="grid"></div>
+        <div id="actions-select" class="actions">
+          <button id="btn-cancel">キャンセル</button>
+          <button id="btn-random">ランダム</button>
+          <button id="btn-ok">決定</button>
+        </div>
+        <div id="actions-global" class="actions" style="display:none">
+          <button id="btn-game-cancel">ゲームをキャンセル</button>
+        </div>
+        <div id="countdown" class="countdown"></div>
+        <div id="winlose-overlay" class="winlose-overlay" style="display:none">
+          <div class="winlose-text">結果WINorLOSE</div>
+        </div>
+      </div>
+    </div>
+    <script src="app.js"></script>
+  </body>
+  </html>
+
+
