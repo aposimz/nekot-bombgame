@@ -50,6 +50,8 @@ function playTurnChime() {
 }
 
 let countdownTimer = null;
+let countdownDisplayTimer = null; // 表示用タイマー
+
 function startCountdownBeep(seconds) {
   if (countdownTimer) { clearInterval(countdownTimer); countdownTimer = null; }
   // immediate tick
@@ -146,6 +148,13 @@ window.addEventListener('message', (e) => {
   }
   if (data.action === 'countdown') {
     setVisible(true);
+    
+    // 既存の表示用タイマーをクリア
+    if (countdownDisplayTimer) {
+      clearInterval(countdownDisplayTimer);
+      countdownDisplayTimer = null;
+    }
+    
     // 勝敗ロールに応じてグリッドの配色と文言を切り替え
     const role = data.role; // 'winner' または 'loser'
     const buttons = [...grid.children];
@@ -166,10 +175,13 @@ window.addEventListener('message', (e) => {
     let s = data.seconds || 10;
     countdown.textContent = `爆発まで: ${s}s`;
     startCountdownBeep(s);
-    const timer = setInterval(() => {
+    countdownDisplayTimer = setInterval(() => {
       s -= 1;
       countdown.textContent = `爆発まで: ${s}s`;
-      if (s <= 0) { clearInterval(timer); }
+      if (s <= 0) { 
+        clearInterval(countdownDisplayTimer); 
+        countdownDisplayTimer = null;
+      }
     }, 1000);
   }
   if (data.action === 'vehicle_message') {
@@ -181,10 +193,16 @@ window.addEventListener('message', (e) => {
     }
   }
   if (data.action === 'close') {
-    // カウントダウンタイマーをクリア
+    // カウントダウンタイマーをクリア（音声用）
     if (countdownTimer) {
       clearInterval(countdownTimer);
       countdownTimer = null;
+    }
+    
+    // 表示用タイマーもクリア
+    if (countdownDisplayTimer) {
+      clearInterval(countdownDisplayTimer);
+      countdownDisplayTimer = null;
     }
     
     // 音声コンテキストをクリア（頻繁な使用で重要）
