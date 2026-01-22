@@ -9,7 +9,7 @@ const btnGameCancel = document.getElementById('btn-game-cancel');
 const btnCancel = document.getElementById('btn-cancel');
 const btnRandom = document.getElementById('btn-random');
 const btnOk = document.getElementById('btn-ok');
-// closeボタンは削除
+
 let selected = null;
 let lastSelectedBtn = null;
 const usedNumbers = new Set();
@@ -74,7 +74,6 @@ function showWinLose(result) {
   const text = winloseOverlay.querySelector('.winlose-text');
   text.textContent = result;
   
-  // シンプルな条件分岐
   if (result.includes('WIN')) {
     text.className = 'winlose-text win';
   } else {
@@ -155,7 +154,7 @@ window.addEventListener('message', (e) => {
       countdownDisplayTimer = null;
     }
     
-    // 勝敗ロールに応じてグリッドの配色と文言を切り替え
+    // 勝敗に応じてグリッドの配色と文言を切り替え
     const role = data.role; // 'winner' または 'loser'
     const buttons = [...grid.children];
     if (role === 'loser') {
@@ -199,13 +198,13 @@ window.addEventListener('message', (e) => {
       countdownTimer = null;
     }
     
-    // 表示用タイマーもクリア
+    // 表示用タイマーをクリア
     if (countdownDisplayTimer) {
       clearInterval(countdownDisplayTimer);
       countdownDisplayTimer = null;
     }
     
-    // 音声コンテキストをクリア（頻繁な使用で重要）
+    // 音声コンテキストをクリア
     if (audioCtx) {
       audioCtx.close();
       audioCtx = null;
